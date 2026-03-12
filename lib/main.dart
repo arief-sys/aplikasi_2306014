@@ -1,315 +1,191 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(HomePage());
+  runApp(MainPage());
 }
 
-class HomePage extends StatelessWidget {
-  build(context) {
+class MainPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.orange,
-          leading: Icon(Icons.home),
-          title: Text('Aplikasi Pertama'),
+          title: Text(
+            'Toko Online',
+            style: TextStyle(fontSize: 20, fontWeight: .bold),
+          ),
         ),
         body: SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.all(20),
+            margin: EdgeInsets.only(top: 20),
             child: Column(
               children: [
-                Row(children: [Icon(Icons.archive), Text('Artikel Terbaru')]),
-                Card(
-                  child: Column(
-                    children: [
-                      Image.network(
-                        'https://cdn.antaranews.com/cache/1200x800/2026/01/13/IMG_9595.jpg',
-                      ),
-                      Text(
-                        'Nyaris juara dunia! Alter Ego Runner Up M7 Usai Dihentikan Aurora',
-                        style: TextStyle(fontSize: 30, fontWeight: .bold),
-                      ),
-                      Text(
-                        'Tim Alter Ego Esports harus mengubur mimpi meraih gelar juara dunia Mobile Legends setelah takluk dari Aurora asal Filipina pada partai Grand Final M7 World Championship. Dalam laga puncak yang berlangsung sengit, Alter Ego harus menyerah dengan skor telak 4-0, sekaligus memastikan posisi runner up di turnamen paling prestisius Mobile Legends tingkat dunia tersebut. Meski gagal membawa pulang trofi, perjalanan Alter Ego sepanjang M7 patut mendapat apresiasi tinggi.\n\n'
-                        'Tim kebanggaan Indonesia ini sempat terlempar ke lower bracket, namun mampu bangkit dengan mental baja dan performa konsisten hingga menembus babak grand final. Perjalanan panjang itu menjadi bukti bahwa Alter Ego bukan hanya kuat secara strategi, tetapi juga matang secara mental bertanding.'
-                        'Di fase lower bracket, Alter Ego sukses menyingkirkan sejumlah tim kuat dari berbagai negara. Setiap laga krusial dijalani dengan disiplin dan fokus tinggi, menunjukkan daya juang luar biasa dari para pemainnya. Ketahanan fisik serta kekompakan tim menjadi kunci keberhasilan mereka melaju hingga partai puncak.\n\n'
-                        'Namun di laga final, Aurora tampil sangat dominan sejak game pertama. Tim asal Filipina tersebut mampu mengendalikan tempo permainan dan memanfaatkan setiap celah yang ada. Strategi agresif Aurora membuat Alter Ego kesulitan mengembangkan permainan hingga pertandingan harus berakhir tanpa satu kemenangan pun di pihak Indonesia.'
-                        'Hasil ini menempatkan Alter Ego sebagai runner up M7 World Championship sekaligus menegaskan bahwa tim Indonesia masih menjadi kekuatan besar di kancah Mobile Legends dunia. Meski belum berhasil meraih gelar juara, performa Alter Ego sepanjang turnamen menjadi pencapaian membanggakan dan modal penting untuk menatap kompetisi internasional berikutnya.\n\n'
-                        'Sumber : kompasiana.com',
-                        textAlign: TextAlign.justify,
-                        style: TextStyle(
-                          fontSize: 14,
-                          height: 1.5,
-                          color: Colors.black87,
+                Flex(
+                  direction: Axis.horizontal,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: CircleAvatar(
+                        radius: 20,
+                        backgroundImage: NetworkImage(
+                          'https://picsum.photos/200',
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                    Expanded(
+                      flex: 10,
+                      child: Text(
+                        "Selamat datang!",
+                        style: TextStyle(fontSize: 16, fontWeight: .bold),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
+                Stack(
+                  children: [
+                    Image.network(
+                      "https://picsum.photos/400/200",
+                      fit: .cover,
+                      width: .infinity,
+                      colorBlendMode: .darken,
+                    ),
+                    Positioned(
+                      bottom: 16,
+                      left: 16,
+                      child: Text(
+                        "Flash Sale Diskon 100% alias gratis",
+                        style: TextStyle(
+                          fontWeight: .bold,
+                          fontSize: 25,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 20),
                 Row(
+                  mainAxisAlignment: .spaceEvenly,
                   children: [
-                    Text(
-                      'Komentar',
-                      style: TextStyle(fontSize: 20, fontWeight: .bold),
+                    TextButton(
+                      onPressed: () {},
+                      style: ButtonStyle(backgroundColor: .all(Colors.orange)),
+                      child: Text(
+                        "Baju",
+                        style: TextStyle(color: Colors.white, fontSize: 13),
+                      ),
                     ),
-                  ],
-                ),
-                ListView(
-                  shrinkWrap: true,
-                  children: [
-                    Card(
-                      child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Rizky Ramadhan',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              'Tetap bangga dengan perjuangan Alter Ego! Runner up dunia bukan hal yang mudah 🔥',
-                            ),
-                          ],
-                        ),
+                    TextButton(
+                      onPressed: () {},
+                      style: ButtonStyle(backgroundColor: .all(Colors.orange)),
+                      child: Text(
+                        "Celana",
+                        style: TextStyle(color: Colors.white, fontSize: 13),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      style: ButtonStyle(backgroundColor: .all(Colors.orange)),
+                      child: Text(
+                        "Sepatu",
+                        style: TextStyle(color: Colors.white, fontSize: 13),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      style: ButtonStyle(backgroundColor: .all(Colors.orange)),
+                      child: Text(
+                        "Aksesoris",
+                        style: TextStyle(color: Colors.white, fontSize: 13),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      style: ButtonStyle(backgroundColor: .all(Colors.orange)),
+                      child: Text(
+                        "Elektronik",
+                        style: TextStyle(color: Colors.white, fontSize: 13),
                       ),
                     ),
                   ],
                 ),
-
-                ListView(
+                SizedBox(height: 10),
+                GridView.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 5,
+                  crossAxisSpacing: 10,
                   shrinkWrap: true,
                   children: [
                     Card(
-                      child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Dimas Saputra',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              'Mental mereka luar biasa bisa bangkit dari lower bracket sampai final. Respect!',
-                            ),
-                          ],
-                        ),
+                      child: Column(
+                        children: [
+                          Image.network(
+                            'https://images.tokopedia.net/img/cache/700/aphluv/1997/1/1/9b6756f2ca4a4e669dec36859cc41ac9~.jpeg',
+                            fit: BoxFit.cover,
+                            width: .infinity,
+                            height: 290,
+                          ),
+                          Text("Kemeja Premium"),
+                          Text("Rp. 250.000"),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-
-                ListView(
-                  shrinkWrap: true,
-                  children: [
                     Card(
-                      child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Fahmi Akbar',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              'Walaupun kalah 4-0, tetap perjuangan yang membanggakan untuk Indonesia.',
-                            ),
-                          ],
-                        ),
+                      child: Column(
+                        children: [
+                          Image.network(
+                            'https://picsum.photos/id/0/5000/3333',
+                            fit: BoxFit.cover,
+                            width: .infinity,
+                            height: 250,
+                          ),
+                          Text("Laptop"),
+                          Text("Rp. 5.000.000"),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-
-                ListView(
-                  shrinkWrap: true,
-                  children: [
                     Card(
-                      child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Andi Pratama',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              'Aurora memang tampil dominan, tapi Alter Ego sudah memberikan yang terbaik!',
-                            ),
-                          ],
-                        ),
+                      child: Column(
+                        children: [
+                          Image.network(
+                            'https://i.ebayimg.com/images/g/fSwAAeSw8vVo33pb/s-l1200.jpg',
+                            fit: BoxFit.cover,
+                            width: .infinity,
+                            height: 250,
+                          ),
+                          Text("Helm Axxis Panther"),
+                          Text("Rp. 2.000.000"),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-
-                ListView(
-                  shrinkWrap: true,
-                  children: [
                     Card(
-                      child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Bagas Wijaya',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              'Bangga jadi fans Alter Ego. Semoga next turnamen bisa juara dunia! 💪',
-                            ),
-                          ],
-                        ),
+                      child: Column(
+                        children: [
+                          Image.network(
+                            'https://down-id.img.susercontent.com/file/id-11134207-8224z-mjqfuejgzny994_tn',
+                            fit: BoxFit.cover,
+                            width: .infinity,
+                            height: 250,
+                          ),
+                          Text("Celana Chinos Pria Panjang Slim Fit"),
+                          Text("Rp. 185.000"),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-
-                ListView(
-                  shrinkWrap: true,
-                  children: [
                     Card(
-                      child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Ilham Maulana',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              'Perjalanan dari lower bracket itu gila sih, mental juara banget!',
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                ListView(
-                  shrinkWrap: true,
-                  children: [
-                    Card(
-                      child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Yoga Permana',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              'Runner up dunia tetap prestasi besar. Terima kasih sudah mengharumkan nama Indonesia 🇮🇩',
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                ListView(
-                  shrinkWrap: true,
-                  children: [
-                    Card(
-                      child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Rafi Hidayat',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              'Semoga evaluasi dari final ini jadi bekal untuk comeback lebih kuat!',
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                ListView(
-                  shrinkWrap: true,
-                  children: [
-                    Card(
-                      child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Kevin Aditya',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              'Tetap dukung Alter Ego di turnamen internasional berikutnya! 🔥',
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                ListView(
-                  shrinkWrap: true,
-                  children: [
-                    Card(
-                      child: Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Aldo Saputra',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              'Bangga banget lihat perjuangan mereka sampai grand final. Keren!',
-                            ),
-                          ],
-                        ),
+                      child: Column(
+                        children: [
+                          Image.network(
+                            'https://down-id.img.susercontent.com/file/sg-11134201-7rdyj-m110r57sywzr09.webp',
+                            fit: BoxFit.cover,
+                            width: .infinity,
+                            height: 250,
+                          ),
+                          Text("Sepatu Pria Sneakers"),
+                          Text("Rp. 152.000"),
+                        ],
                       ),
                     ),
                   ],
