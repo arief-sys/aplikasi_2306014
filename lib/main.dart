@@ -1,198 +1,126 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MainPage());
+  runApp(const MyApp(name: 'Teknik Informatika', year: 2026));
 }
 
-class MainPage extends StatelessWidget {
+class MyApp extends StatelessWidget {
+  final String name;
+  final int year;
+
+  const MyApp({super.key, required this.name, required this.year});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.orange,
-          title: Text(
-            'Toko Online',
-            style: TextStyle(fontSize: 20, fontWeight: .bold),
-          ),
+          backgroundColor: Colors.blue,
+          title: Text('$name $year'),
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            margin: EdgeInsets.only(top: 20),
-            child: Column(
-              children: [
-                Flex(
-                  direction: Axis.horizontal,
+        body: const NumberScreen(),
+      ),
+    );
+  }
+}
+
+class NumberScreen extends StatefulWidget {
+  const NumberScreen({super.key});
+
+  @override
+  State<NumberScreen> createState() => _NumberScreenState();
+}
+
+class _NumberScreenState extends State<NumberScreen> {
+  String name = 'Gelas Putih';
+  String photo = 'https://picsum.photos/id/30/367/267';
+  int qty = 0;
+  int harga = 15000;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        margin: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
                   children: [
-                    Expanded(
-                      flex: 1,
-                      child: CircleAvatar(
-                        radius: 20,
-                        backgroundImage: NetworkImage(
-                          'https://picsum.photos/200',
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 10,
-                      child: Text(
-                        "Selamat datang!",
-                        style: TextStyle(fontSize: 16, fontWeight: .bold),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                Stack(
-                  children: [
+                    // Gambar
                     Image.network(
-                      "https://picsum.photos/400/200",
-                      fit: .cover,
-                      width: .infinity,
-                      colorBlendMode: .darken,
+                      photo,
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.cover,
                     ),
-                    Positioned(
-                      bottom: 16,
-                      left: 16,
-                      child: Text(
-                        "Flash Sale Diskon 100% alias gratis",
-                        style: TextStyle(
-                          fontWeight: .bold,
-                          fontSize: 25,
-                          color: Colors.white,
+
+                    const SizedBox(width: 10),
+
+                    // Info produk
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            name,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            'Rp $harga',
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // Tombol qty
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.remove),
+                          onPressed: () {
+                            setState(() {
+                              if (qty > 0) {
+                                qty--;
+                              }
+                            });
+                          },
                         ),
-                      ),
+                        Text(qty.toString()),
+                        IconButton(
+                          icon: const Icon(Icons.add),
+                          onPressed: () {
+                            setState(() {
+                              qty++;
+                            });
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: .spaceEvenly,
-                  children: [
-                    TextButton(
-                      onPressed: () {},
-                      style: ButtonStyle(backgroundColor: .all(Colors.orange)),
-                      child: Text(
-                        "Baju",
-                        style: TextStyle(color: Colors.white, fontSize: 13),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      style: ButtonStyle(backgroundColor: .all(Colors.orange)),
-                      child: Text(
-                        "Celana",
-                        style: TextStyle(color: Colors.white, fontSize: 13),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      style: ButtonStyle(backgroundColor: .all(Colors.orange)),
-                      child: Text(
-                        "Sepatu",
-                        style: TextStyle(color: Colors.white, fontSize: 13),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      style: ButtonStyle(backgroundColor: .all(Colors.orange)),
-                      child: Text(
-                        "Aksesoris",
-                        style: TextStyle(color: Colors.white, fontSize: 13),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      style: ButtonStyle(backgroundColor: .all(Colors.orange)),
-                      child: Text(
-                        "Elektronik",
-                        style: TextStyle(color: Colors.white, fontSize: 13),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                GridView.count(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 5,
-                  crossAxisSpacing: 10,
-                  shrinkWrap: true,
-                  children: [
-                    Card(
-                      child: Column(
-                        children: [
-                          Image.network(
-                            'https://images.tokopedia.net/img/cache/700/aphluv/1997/1/1/9b6756f2ca4a4e669dec36859cc41ac9~.jpeg',
-                            fit: BoxFit.cover,
-                            width: .infinity,
-                            height: 290,
-                          ),
-                          Text("Kemeja Premium"),
-                          Text("Rp. 250.000"),
-                        ],
-                      ),
-                    ),
-                    Card(
-                      child: Column(
-                        children: [
-                          Image.network(
-                            'https://picsum.photos/id/0/5000/3333',
-                            fit: BoxFit.cover,
-                            width: .infinity,
-                            height: 250,
-                          ),
-                          Text("Laptop"),
-                          Text("Rp. 5.000.000"),
-                        ],
-                      ),
-                    ),
-                    Card(
-                      child: Column(
-                        children: [
-                          Image.network(
-                            'https://i.ebayimg.com/images/g/fSwAAeSw8vVo33pb/s-l1200.jpg',
-                            fit: BoxFit.cover,
-                            width: .infinity,
-                            height: 250,
-                          ),
-                          Text("Helm Axxis Panther"),
-                          Text("Rp. 2.000.000"),
-                        ],
-                      ),
-                    ),
-                    Card(
-                      child: Column(
-                        children: [
-                          Image.network(
-                            'https://down-id.img.susercontent.com/file/id-11134207-8224z-mjqfuejgzny994_tn',
-                            fit: BoxFit.cover,
-                            width: .infinity,
-                            height: 250,
-                          ),
-                          Text("Celana Chinos Pria Panjang Slim Fit"),
-                          Text("Rp. 185.000"),
-                        ],
-                      ),
-                    ),
-                    Card(
-                      child: Column(
-                        children: [
-                          Image.network(
-                            'https://down-id.img.susercontent.com/file/sg-11134201-7rdyj-m110r57sywzr09.webp',
-                            fit: BoxFit.cover,
-                            width: .infinity,
-                            height: 250,
-                          ),
-                          Text("Sepatu Pria Sneakers"),
-                          Text("Rp. 152.000"),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+              ),
             ),
-          ),
+
+            const SizedBox(height: 20),
+
+            // Total harga
+            Text(
+              'Total: Rp ${qty * harga}',
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
       ),
     );
