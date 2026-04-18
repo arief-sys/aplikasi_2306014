@@ -13,7 +13,6 @@ class HomePage extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            // 🔥 KOTAK SELAMAT DATANG (ROUNDED)
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),
