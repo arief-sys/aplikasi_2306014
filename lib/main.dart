@@ -1,106 +1,168 @@
 import 'package:flutter/material.dart';
-import 'home_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MaterialApp(home: ProductPage()));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Product {
+  String name;
+  int price;
+  String imageUrl; // 🔥 TAMBAHAN
+
+  Product({required this.name, required this.price, required this.imageUrl});
+}
+
+class ProductPage extends StatefulWidget {
+  const ProductPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(home: LoginPage());
+  State<ProductPage> createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
+  List<Product> products = [
+    Product(
+      name: "Nasi Padang",
+      price: 12000,
+      imageUrl: "https://picsum.photos/200",
+    ),
+    Product(
+      name: "Ayam Crispy",
+      price: 20000,
+      imageUrl: "https://picsum.photos/201",
+    ),
+    Product(
+      name: "Spicy Chicken",
+      price: 35000,
+      imageUrl: "https://picsum.photos/202",
+    ),
+  ];
+
+  void addProduct(Product product) {
+    setState(() {
+      products.add(product);
+    });
   }
-}
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  void updateProduct(int index, Product product) {
+    setState(() {
+      products[index] = product;
+    });
+  }
 
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
+  void deleteProduct(int index) {
+    setState(() {
+      products.removeAt(index);
+    });
+  }
 
-class _LoginPageState extends State<LoginPage> {
-  // global key
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  void showForm({Product? product, int? index}) {
+    TextEditingController nameController = TextEditingController(
+      text: product?.name ?? "",
+    );
 
-  void login() {
-    //jika login berhasil
-    if (_formKey.currentState!.validate()) {
-      String username = usernameController.text;
-      String password = passwordController.text;
+    TextEditingController priceController = TextEditingController(
+      text: product?.price.toString() ?? "",
+    );
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Login berhasil $username - $password')),
-      );
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage(username: username)),
-      );
-    }
+    TextEditingController imageController = TextEditingController(
+      text: product?.imageUrl ?? "",
+    );
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(product == null ? "Tambah Product" : "Update Product"),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: nameController,
+                  decoration: const InputDecoration(labelText: "Nama Product"),
+                ),
+                TextField(
+                  controller: priceController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(labelText: "Price Product"),
+                ),
+                TextField(
+                  controller: imageController,
+                  decoration: const InputDecoration(labelText: "Image URL"),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            ElevatedButton(
+              child: const Text("Simpan"),
+              onPressed: () {
+                final newProduct = Product(
+                  name: nameController.text,
+                  price: int.parse(priceController.text),
+                  imageUrl: imageController.text,
+                );
+
+                if (product == null) {
+                  addProduct(newProduct);
+                } else {
+                  updateProduct(index!, newProduct);
+                }
+
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Halaman Login',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
+        title: const Text("CRUD App Product"),
+        backgroundColor: Colors.blue,
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: usernameController,
-                decoration: InputDecoration(
-                  labelText: 'Username',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Username tidak boleh kosong';
-                  }
-                  if (value.length < 4) {
-                    return 'Username minimal 4 huruf';
-                  }
-                  return null;
-                },
+      body: ListView.builder(
+        itemCount: products.length,
+        itemBuilder: (context, index) {
+          return Card(
+            margin: const EdgeInsets.all(8),
+            child: ListTile(
+              leading: Image.network(
+                products[index].imageUrl,
+                width: 50,
+                height: 50,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) =>
+                    const Icon(Icons.image_not_supported),
               ),
-              SizedBox(height: 12),
-              TextFormField(
-                controller: passwordController,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Password tidak boleh kosong';
-                  }
-                  if (value.length < 4) {
-                    return 'Password minimal 4 huruf';
-                  }
-                  return null;
-                },
+              title: Text(products[index].name),
+              subtitle: Text("Rp ${products[index].price}"),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    onPressed: () =>
+                        showForm(product: products[index], index: index),
+                    icon: const Icon(Icons.edit),
+                  ),
+                  IconButton(
+                    onPressed: () => deleteProduct(index),
+                    icon: const Icon(Icons.delete),
+                  ),
+                ],
               ),
-              SizedBox(height: 12),
-              ElevatedButton(
-                onPressed: () {
-                  login();
-                },
-                child: Text('Login'),
-              ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => showForm(),
+        child: const Icon(Icons.add),
       ),
     );
   }
